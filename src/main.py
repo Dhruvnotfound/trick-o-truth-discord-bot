@@ -1,4 +1,3 @@
-from keep_alive import keep_alive
 import discord
 from discord.ext import commands
 import random
@@ -343,5 +342,4 @@ async def end_game(ctx):
 
     game.reset()
 
-keep_alive()
 bot.run(os.environ['TOKEN'])
