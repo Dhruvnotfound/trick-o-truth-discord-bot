@@ -10,7 +10,7 @@ sudo yum install -y python3 python3-pip
 cd /home/ec2-user/discord-bot/src
 
 # Install required Python packages
-pip3 install -r requirements.txt
+pip3 install -r requirement.txt
 
 # Run the Discord bot
 nohup python3 main.py &
