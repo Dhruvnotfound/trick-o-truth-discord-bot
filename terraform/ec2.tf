@@ -1,7 +1,7 @@
 # Create a VPC
 resource "aws_vpc" "discord_bot_vpc" {
   cidr_block = "10.0.0.0/16"
-  
+
   tags = {
     Name = "Discord Bot VPC"
   }
@@ -20,6 +20,7 @@ resource "aws_internet_gateway" "discord_bot_igw" {
 resource "aws_subnet" "discord_bot_subnet" {
   vpc_id     = aws_vpc.discord_bot_vpc.id
   cidr_block = "10.0.1.0/24"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "Discord Bot Subnet"
@@ -56,7 +57,7 @@ resource "aws_security_group" "discord_bot_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Be cautious with this. In production, limit to your IP.
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -73,7 +74,7 @@ resource "aws_security_group" "discord_bot_sg" {
 
 # Create an EC2 Instance
 resource "aws_instance" "discord_bot_instance" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Amazon Linux 2 AMI (HVM), SSD Volume Type
+  ami           = "ami-0b72821e2f351e396"
   instance_type = "t2.micro"
   key_name      = "discord_bot" # Replace with your key pair name
 
@@ -85,7 +86,7 @@ resource "aws_instance" "discord_bot_instance" {
   tags = {
     Name = "Discord Bot EC2 Instance"
   }
-#use aws secret manager?
+  #use aws secret manager?
   user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
@@ -93,7 +94,7 @@ resource "aws_instance" "discord_bot_instance" {
               cd /home/ec2-user
               git clone https://github.com/Dhruvnotfound/trick-o-truth-discord-bot.git discord-bot
               cd discord-bot
-              echo "TOKEN=${var.discord_token}" > .env
+              echo "TOKEN=${local.token["Discord_bot_token"]}" > .env
               chmod +x setup_and_run_bot.sh
               ./setup_and_run_bot.sh 
               EOF
