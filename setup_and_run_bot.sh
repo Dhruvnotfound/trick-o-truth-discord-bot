@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # Update package list and install dependencies
-sudo apt-get update -y
-sudo apt-get upgrade -y
+sudo yum update -y
 
 # Install Python and pip
-sudo apt-get install -y python3 python3-pip
+sudo yum install -y python3 python3-pip
 
 # Navigate to the directory where the bot script is located
 cd /home/ec2-user/discord-bot/src
