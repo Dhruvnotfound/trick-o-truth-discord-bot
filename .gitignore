@@ -1,1 +1,4 @@
 keep_alive.py
+.terraform*
+terraform.tfstate
+terraform.tfstate.backup
