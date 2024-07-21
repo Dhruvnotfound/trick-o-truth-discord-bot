@@ -92,7 +92,7 @@ resource "aws_instance" "discord_bot_instance" {
               sudo yum update -y
               sudo yum install -y git python3-pip
               cd /home/ec2-user
-              git clone -b test-01 https://github.com/Dhruvnotfound/trick-o-truth-discord-bot.git discord-bot
+              git clone https://github.com/Dhruvnotfound/trick-o-truth-discord-bot.git discord-bot
               cd discord-bot
               echo "TOKEN=${local.token["Discord_bot_token"]}" > .env
               chmod +x setup_and_run_bot.sh
