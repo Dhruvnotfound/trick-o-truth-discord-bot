@@ -74,10 +74,9 @@ resource "aws_security_group" "discord_bot_sg" {
 
 # Create an EC2 Instance
 resource "aws_instance" "discord_bot_instance" {
-  ami           = "ami-0b72821e2f351e396"
-  instance_type = "t2.micro"
-  key_name      = "discord_bot" # Replace with your key pair name
-
+  ami           = var.ami
+  instance_type = var.instance_type
+  key_name      = local.token["ec2_key_name"] # Replace with your key pair name
   vpc_security_group_ids = [aws_security_group.discord_bot_sg.id]
   subnet_id              = aws_subnet.discord_bot_subnet.id
 
@@ -86,7 +85,7 @@ resource "aws_instance" "discord_bot_instance" {
   tags = {
     Name = "Discord Bot EC2 Instance"
   }
-  #use aws secret manager?
+
   user_data = <<-EOF
               #!/bin/bash
               sudo yum update -y
@@ -94,7 +93,7 @@ resource "aws_instance" "discord_bot_instance" {
               cd /home/ec2-user
               git clone https://github.com/Dhruvnotfound/trick-o-truth-discord-bot.git discord-bot
               cd discord-bot
-              echo "TOKEN=${local.token["Discord_bot_token"]}" > .env
+              echo "TOKEN=${local.token["Discord_bot_token"]}" > .env #replace with your bot token
               chmod +x setup_and_run_bot.sh
               ./setup_and_run_bot.sh 
               EOF
