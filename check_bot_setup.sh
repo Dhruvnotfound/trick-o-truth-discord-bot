@@ -3,6 +3,9 @@
 
    # SSH into the ec2 instance to run this
    # ssh -i /path/to/your/key.pem ec2-user@<public_ip_address>
+   # sudo chown ec2-user:ec2-user check_bot_setup.sh to change file ownership 
+   # chmod +x check_bot_setup.sh
+   # ./check_bot_setup.sh
    echo "Checking Discord bot setup..."
 
    # Check if the discord-bot directory exists
