@@ -1,3 +1,3 @@
 asyncio
 discord.py
-dotenv
+python-dotenv

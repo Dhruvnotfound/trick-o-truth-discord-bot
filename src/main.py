@@ -343,4 +343,4 @@ async def end_game(ctx):
 
     game.reset()
 load_dotenv()
-bot.run(os.getenv['TOKEN'])
+bot.run(os.environ['TOKEN'])
