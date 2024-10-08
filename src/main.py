@@ -1,3 +1,5 @@
+#Instal required packeges befor running pytest in venv
+
 import discord
 from discord.ext import commands
 import random
@@ -342,5 +344,7 @@ async def end_game(ctx):
         await ctx.send(f"It's a tie! The winners are {winners_names} with {game.get_scores()[winners[0]]} points each! 🏆")
 
     game.reset()
-load_dotenv()
-bot.run(os.environ['TOKEN'])
+
+if __name__ == "__main__":
+    load_dotenv()
+    bot.run(os.environ['TOKEN'])
